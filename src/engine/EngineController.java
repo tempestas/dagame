@@ -10,7 +10,7 @@ public class EngineController {
 	
 	public Data getData(){
 	
-		return null;
+		return this.data;
 	}
 	
 	void createPlayer(){
@@ -25,8 +25,19 @@ public class EngineController {
 		
 	}
 	
-	void checkForCollisions(){
+	/**
+	 * if there are no collisions false will returned
+	 * @return returns collision status
+	 */
+	boolean checkForCollisions(){
 		
+		for (Box box : data.getBoxes()){
+			for (Player player : data.getPlayers()){
+				if (player.isInBox(box))
+					return true;
+			}
+		}
+		return false;
 	}
 	
 	int calcPoints(){
