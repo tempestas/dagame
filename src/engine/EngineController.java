@@ -1,9 +1,18 @@
 package engine;
 
+/**
+ * Controls and initializes every calculation
+ * @author Sascha Eckert
+ *
+ */
 public class EngineController {
 
-	Data data;
+	private Data data;
+	private int currentPoints;
 	
+	/**
+	 * initializes start sequence
+	 */
 	void init(){
 		this.data = new Data();
 	}
@@ -42,6 +51,6 @@ public class EngineController {
 	
 	int calcPoints(){
 	
-		return 0;
+		return currentPoints;
 	}
 }

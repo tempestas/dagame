@@ -1,5 +1,9 @@
+package gui;
+
 import java.awt.*;
 import java.util.ArrayList;
+
+import engine.Box;
 
 public class Playfield extends Component
 {

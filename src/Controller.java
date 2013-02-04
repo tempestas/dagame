@@ -2,21 +2,33 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-
+/**
+ * 
+ * @author Sascha Eckert
+ * This class initializes all other instances and starts all subroutines
+ */
 public class Controller {
 
 	Timer timer = new Timer();
+	int interval = 100;
 	int delay = 0;
+	boolean isStarted = false;
 
+	/**
+	 * initializes start sequence
+	 */
 	void init(){
-		timer.schedule( this.new sTask(this, delay), 100 );
+		if (isStarted) timer.cancel();
+		timer.schedule( this.new sTask(this, delay), interval );
+		isStarted = true;
 	}
 	
+	/**
+	 * will redone after a defined interval
+	 */
 	void nextStep(){
 		delay++;
-		timer.schedule( this.new sTask(this, delay), 100 );
-		//timer.schedule( this.new sTask(this), 2000 );
-		//timer.schedule( controller.new sTask(controller), 2000 );
+		timer.schedule( this.new sTask(this, delay), interval );
 	}
 	
 	public static void main(String[] args){
@@ -25,6 +37,11 @@ public class Controller {
 
 
 
+	/**
+	 * task for timer ... executes function nextStep() after a certain interval
+	 * @author Sascha Eckert
+	 *
+	 */
 	public class sTask extends TimerTask
 	{
 	

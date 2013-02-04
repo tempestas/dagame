@@ -2,6 +2,11 @@ package engine;
 
 import java.util.ArrayList;
 
+/**
+ * Data Container for all necessary data
+ * @author Sascha Eckert
+ *
+ */
 public class Data {
 
 	private ArrayList<Box> boxes;
