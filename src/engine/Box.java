@@ -1,44 +1,24 @@
 package engine;
 
-/**
- * mathematical object for objects in game
- * @author Sascha Eckert
- *
- */
-public class Box {
-	
-	private int fallSpeed;
-	private int lastPos[] = new int[2];
-	private int curPos[] = new int[2];
-	private int width;
-	private int height;
+public class Box extends GameObject{
 
-	public Box(){
-		this.fallSpeed = 1;
-		this.width = 100;
-		this.height = 100;
+	private int fallSpeed;
+
+	public Box(int posx, int posy){
+
+		super(posx, posy);
+		this.fallSpeed = 5*((int)(Math.random()*3+1));
+
 	}
 	
-	public Box(int fallSpeed, int width, int height){
+	public Box(int posx, int posy, int fallSpeed, int width, int height){
+		super(posx, posy);
 		this.fallSpeed = fallSpeed;
 		this.width = width;
 		this.height = height;
 	}
 	
-	/**
-	 * checks for collision
-	 * if there are no collisions false will returned
-	 * @param box for collision check
-	 * @return true for collision
-	 */
-	boolean isInBox(Box box){
-		if ((this.height > (box.getCurPos(1) + box.getHeight())) && (this.height < (box.getCurPos(1) + box.getHeight())))
-			return true;
-		if ((this.width > (box.getCurPos(0) + box.getWidth())) && (this.width < (box.getCurPos(0) + box.getWidth())))
-			return true;
-		
-		return false;
-	}
+	
 	
 	/**
 	 * sets fall speed for this element
@@ -53,7 +33,7 @@ public class Box {
 	 */
 	void move(){
 		setLastPos(getCurPos(0), getCurPos(1));
-		setCurPos(getCurPos(0)+this.fallSpeed, getCurPos(1)+this.fallSpeed);
+		setCurPos(getCurPos(0), getCurPos(1)-this.fallSpeed);
 	}
 	
 	/**
@@ -107,4 +87,5 @@ public class Box {
 	int getHeight(){
 		return this.height;
 	}
+	
 }

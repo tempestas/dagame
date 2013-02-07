@@ -25,6 +25,18 @@ public class Data {
 		return this.boxes.get(boxNumber);
 	}
 	
+	public void addBox(Box newBox){
+		boxes.add(newBox);
+	}
+	
+	public void addPlayer(Player newPlayer){
+		players.add(newPlayer);
+	}
+	
+	public void removeBox(Box box){
+		boxes.remove(box);
+	}
+	
 	public ArrayList<Player> getPlayers(){
 		return this.players;
 	}
