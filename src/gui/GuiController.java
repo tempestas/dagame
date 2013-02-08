@@ -1,14 +1,37 @@
 package gui;
+import javax.swing.*;
 
-public class GuiController {
+import engine.*;
+import main.*;
+import main.Controller.GLOBALS;
 
+
+public class GuiController  {
+
+	private Controller controller;
+	private Playfield playfield;
+	private Window window = new Window();
+	private MenuBar menue;
 	
 	
-	public GuiController(){
+	public GuiController(Controller controller){
 		
+		this.controller = controller;
+		this.playfield = new Playfield(controller.getGlobals(GLOBALS.PLAYFILEDSIZEX), controller.getGlobals(GLOBALS.PLAYFILEDSIZEY));
+		menue = new MenuBar(controller);
 	}
 	
 	public void init(){
 		
+		window.add(playfield);
+		playfield.init();
+		window.setJMenuBar(menue);
+		window.setVisible(true);
+		
+	}
+	public void nextStep(Data data) {
+		
+		playfield.setData(data);
+		playfield.repaint();
 	}
 }

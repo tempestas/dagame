@@ -35,15 +35,15 @@ public class Controller {
 	
 	public Controller() {
 		eController = new EngineController(this);
-		gController = new GuiController();
+		gController = new GuiController(this);
+		gController.init();
 	}
 
 	/**
 	 * initializes start sequence
 	 */
-	void init(){
+	public void init(){
 		eController.init();
-		gController.init();
 		if (isStarted) timer.cancel();
 			timer.schedule( this.new sTask(this, delay), globals.get(GLOBALS.INTERVAL) );
 		isStarted = true;
@@ -71,6 +71,7 @@ public class Controller {
 		else{
 			System.out.println("Player crashes with box");
 		}
+		gController.nextStep(eController.getData());
 	}
 	
 	/**
@@ -83,7 +84,7 @@ public class Controller {
 	}
 	
 	public static void main(String[] args){
-		new Controller().init();
+		new Controller();
 	}
 
 

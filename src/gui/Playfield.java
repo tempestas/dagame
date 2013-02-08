@@ -2,28 +2,34 @@ package gui;
 
 import java.awt.*;
 import java.util.ArrayList;
+import engine.*;
 
-import engine.Box;
-
-public class Playfield extends Component
+public class Playfield extends Canvas
 {
-	int y_pos = 10;   // x - Position des Balles
-	int x_pos = 100;  // y - Position des Balles
-	int radius = 20;  // Radius des Balles
-	int [] x_poses = {10, 50, 80, 100, 150, 250};
-	int [] y_poses = {-20, -60, 20, 0, -60, -80};
-//	  ArrayList
+	
 	int anzObjekte = 6;
 	private Image dbImage;
 	private Graphics dbg;
+	private Data data;
 		
-	public void update (Graphics g, ArrayList<Box> boxes)
+	public Playfield(int dimX, int dimY) {
+		setSize(dimX,dimY);
+		setMaximumSize(getSize());
+	}
+	public void init() {
+		
+		setBackground(Color.black);
+		setVisible(true);
+		
+		
+	}
+	public void update (Graphics g)
   {
     // Initialisierung des DoubleBuffers
     if (dbImage == null)
     {
       dbImage = createImage (this.getSize().width, this.getSize().height);
-      dbg = dbImage.getGraphics ();
+      dbg = dbImage.getGraphics();
     }
 
     // Bildschirm im Hintergrund löschen
@@ -37,13 +43,22 @@ public class Playfield extends Component
     // Nun fertig gezeichnetes Bild Offscreen auf dem richtigen Bildschirm anzeigen
     g.drawImage (dbImage, 0, 0, this);
   }
-   
+  
   public void paint (Graphics g)
   {
-   g.setColor  (Color.white);
-    for(int i = 0; i < anzObjekte; i++) {
-    g.fillOval (x_poses[i] - radius / 2, y_poses[i] - radius / 2, radius, radius);
-    }
+	  g.setColor  (Color.white);
+	  for(int i = 0; i < data.getBoxes().size(); i++) {
+		  g.fillRect( data.getBox(i).getCurPos(0),this.getHeight()-data.getBox(i).getCurPos(1)-data.getBox(i).getHeight(), data.getBox(i).getWidth(), data.getBox(i).getHeight());
+	  }
+	  for(int i = 0; i < data.getPlayers().size(); i++) {
+		  g.fillRect( data.getPlayer(i).getCurPos(0),this.getHeight()-data.getPlayer(i).getCurPos(1)-data.getPlayer(i).getHeight(), data.getPlayer(i).getWidth(), data.getPlayer(i).getHeight());
+	  }
   }
+public Data getData() {
+	return data;
+}
+public void setData(Data data) {
+	this.data = data;
+}
 
 }

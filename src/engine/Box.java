@@ -40,7 +40,7 @@ public class Box extends GameObject{
 	 * 
 	 * @return last position of box as array (x,y)
 	 */
-	public Integer getLastPos(int coordinate){
+	public int getLastPos(int coordinate){
 		return this.lastPos[coordinate];
 	}
 	
@@ -58,7 +58,7 @@ public class Box extends GameObject{
 	 * 
 	 * @return current position of box as array (x,y)
 	 */
-	public Integer getCurPos(int coordinate){
+	public int getCurPos(int coordinate){
 		return this.curPos[coordinate];
 	}
 	
@@ -76,16 +76,16 @@ public class Box extends GameObject{
 	 * 
 	 * @return width of object
 	 */
-	int getWidth(){
+	/* public int getWidth(){
 		return this.width;
-	}
+	}*/
 	
 	/**
 	 * 
 	 * @return height of object
 	 */
-	int getHeight(){
+	/*public int getHeight(){
 		return this.height;
-	}
+	}*/
 	
 }
