@@ -113,6 +113,10 @@ public class Controller {
 
 	}
 	
+	public void movePlayer(KEYS key){
+		eController.movePlayer(key);
+	}
+	
 	public enum GLOBALS{
 		PLAYFILEDSIZEX,
 		PLAYFILEDSIZEY,
