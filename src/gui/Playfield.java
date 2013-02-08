@@ -12,9 +12,10 @@ public class Playfield extends Canvas
 	private Graphics dbg;
 	private Data data;
 		
-	public Playfield(int dimX, int dimY) {
+	public Playfield(int dimX, int dimY, Data data) {
 		setSize(dimX,dimY);
 		setMaximumSize(getSize());
+		this.data = data;
 	}
 	public void init() {
 		

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import main.Controller;
 import main.Controller.GLOBALS;
+import main.Controller.KEYS;
 
 
 /**
@@ -113,8 +114,30 @@ public class EngineController {
 		return false;
 	}
 	
+	/**
+	 * calculate Points for current state
+	 * @return current points
+	 */
 	public int calcPoints(){
 	
 		return currentPoints;
+	}
+
+	/**
+	 * handles key events
+	 * @param key
+	 */
+	public void keyHandling(KEYS key) {
+		switch (key){
+			case LEFT: 
+				if (data.getPlayer(0).getCurPos(0) > 0)
+					data.getPlayer(0).movePlayer(key);
+				break;
+			case RIGHT: 
+				if (data.getPlayer(0).getCurPos(0) < (controller.getGlobals(GLOBALS.PLAYFILEDSIZEX)-data.getPlayer(0).getMovespeed()-data.getPlayer(0).getWidth()))
+					data.getPlayer(0).movePlayer(key);
+				break;
+			default: ;break;
+		}
 	}
 }

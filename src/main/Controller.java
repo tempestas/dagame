@@ -5,6 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import engine.Box;
+import engine.Data;
 import engine.EngineController;
 import gui.GuiController;
 
@@ -31,7 +32,7 @@ public class Controller {
 	private GuiController gController = null;
 	
 	private int delay = 0;
-	private boolean isStarted = false;
+	private boolean reset = false;
 	
 	public Controller() {
 		eController = new EngineController(this);
@@ -44,18 +45,21 @@ public class Controller {
 	 */
 	public void init(){
 		eController.init();
-		if (isStarted) timer.cancel();
-			timer.schedule( this.new sTask(this, delay), globals.get(GLOBALS.INTERVAL) );
-		isStarted = true;
+		timer.schedule( this.new sTask(this, delay), globals.get(GLOBALS.INTERVAL) );
 	}
 	
 	/**
 	 * will redone after a defined interval
 	 */
-	void nextStep(){
+	private void nextStep(){
+		
+		if (reset){
+			eController.init();
+			this.delay = 0;
+			reset = false;
+		}
 		
 		eController.nextStep();
-		//gController.nextStep(); //TODO: gui output
 		
 		// TODO: just for testing (boxes position)
 		if (eController.getData().getBoxes().size() != 0)
@@ -64,7 +68,7 @@ public class Controller {
 			System.out.println("PLAYER x: "+eController.getData().getPlayer(0).getCurPos(0)+" y: "+eController.getData().getPlayer(0).getCurPos(1));
 		
 		//starts next period
-		if (!eController.checkForCollisions()){ //TODO: additional a parameter set by actionlistener
+		if (!eController.checkForCollisions()){
 			delay++;
 			timer.schedule(this.new sTask(this, delay), globals.get(GLOBALS.INTERVAL) );
 		}
@@ -74,13 +78,17 @@ public class Controller {
 		gController.nextStep(eController.getData());
 	}
 	
+	public void reset(){
+		this.reset = true;
+	}
+	
 	/**
 	 * 
-	 * @param gb
+	 * @param globalParameter
 	 * @return value of global parameter
 	 */
-	public Integer getGlobals(GLOBALS gb){
-		return this.globals.get(gb);
+	public int getGlobals(GLOBALS globalParameter){
+		return this.globals.get(globalParameter);
 	}
 	
 	public static void main(String[] args){
@@ -113,16 +121,35 @@ public class Controller {
 
 	}
 	
-	public void movePlayer(KEYS key){
-		eController.movePlayer(key);
+	public Data getData(){
+		return eController.getData();
 	}
 	
+	/**
+	 * handles key events
+	 * @param key
+	 */
+	public void keyHandling(KEYS key){
+		this.eController.keyHandling(key);
+	}
+	
+	/**
+	 * Global parameter
+	 * @author Sascha Eckert
+	 *
+	 */
 	public enum GLOBALS{
 		PLAYFILEDSIZEX,
 		PLAYFILEDSIZEY,
 		INTERVAL,
 		BOXAFTERINTERVALLCOUNTOF;
 	}
+	
+	/**
+	 * Key events
+	 * @author Sven Ahrens
+	 *
+	 */
 	public enum KEYS{
 		LEFT,
 		RIGHT;

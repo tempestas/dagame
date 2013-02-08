@@ -1,8 +1,7 @@
 package gui;
-import javax.swing.*;
 
-import engine.*;
-import main.*;
+import engine.Data;
+import main.Controller;
 import main.Controller.GLOBALS;
 
 
@@ -17,7 +16,7 @@ public class GuiController  {
 	public GuiController(Controller controller){
 		
 		this.controller = controller;
-		this.playfield = new Playfield(controller.getGlobals(GLOBALS.PLAYFILEDSIZEX), controller.getGlobals(GLOBALS.PLAYFILEDSIZEY));
+		this.playfield = new Playfield(controller.getGlobals(GLOBALS.PLAYFILEDSIZEX), controller.getGlobals(GLOBALS.PLAYFILEDSIZEY), this.controller.getData());
 		menue = new MenuBar(controller);
 		window = new Window(controller);
 	}

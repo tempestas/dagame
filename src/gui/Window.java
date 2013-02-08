@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.*;
 import java.awt.event.*;
 import main.*;
 import main.Controller.KEYS;
@@ -19,10 +18,10 @@ public class Window extends JFrame {
             public void keyTyped(KeyEvent e) {}
             public void keyPressed(KeyEvent e) {
             	if(e.getKeyCode()== KeyEvent.VK_LEFT) {
-            		controller.movePlayer(KEYS.LEFT);
+            		controller.keyHandling(KEYS.LEFT);
             	}
             	if(e.getKeyCode()== KeyEvent.VK_RIGHT) {
-            		controller.movePlayer(KEYS.RIGHT);
+            		controller.keyHandling(KEYS.RIGHT);
             	}
             }
             public void keyReleased(KeyEvent e) {

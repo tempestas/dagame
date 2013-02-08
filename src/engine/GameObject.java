@@ -7,11 +7,11 @@ package engine;
  */
 public class GameObject {
 	
-	
-	protected int lastPos[] = new int[2];
-	protected int curPos[] = new int[2];
-	protected int width;
-	protected int height;
+	private int moveSpeed;
+	private int lastPos[] = new int[2];
+	private int curPos[] = new int[2];
+	private int width;
+	private int height;
 	
 	public GameObject(int posx, int posy){
 		this.curPos[0] = posx;
@@ -55,7 +55,7 @@ public class GameObject {
 	 * @param x
 	 * @param y
 	 */
-	private void setLastPos(int x, int y){
+	protected void setLastPos(int x, int y){
 		curPos[0] = x;
 		curPos[1] = y;
 	}
@@ -73,9 +73,17 @@ public class GameObject {
 	 * @param x
 	 * @param y
 	 */
-	private void setCurPos(int x, int y){
+	protected void setCurPos(int x, int y){
 		curPos[0] = x;
 		curPos[1] = y;
+	}
+	
+	/**
+	 * sets fall speed for this element
+	 * @param speed
+	 */
+	protected void setMoveSpeed(int speed){
+		this.moveSpeed = speed; 
 	}
 	
 	/**
@@ -92,5 +100,17 @@ public class GameObject {
 	 */
 	public int getHeight(){
 		return this.height;
+	}
+	
+	public int getMovespeed(){
+		return moveSpeed;
+	}
+	
+	protected void setWidth(int width){
+		this.width = width;
+	}
+	
+	protected void setHeight(int height){
+		this.height = height;
 	}
 }
