@@ -119,4 +119,8 @@ public class Controller {
 		INTERVAL,
 		BOXAFTERINTERVALLCOUNTOF;
 	}
+	public enum KEYS{
+		LEFT,
+		RIGHT;
+	}
 }

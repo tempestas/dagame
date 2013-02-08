@@ -10,7 +10,7 @@ public class GuiController  {
 
 	private Controller controller;
 	private Playfield playfield;
-	private Window window = new Window();
+	private Window window;
 	private MenuBar menue;
 	
 	
@@ -19,6 +19,7 @@ public class GuiController  {
 		this.controller = controller;
 		this.playfield = new Playfield(controller.getGlobals(GLOBALS.PLAYFILEDSIZEX), controller.getGlobals(GLOBALS.PLAYFILEDSIZEY));
 		menue = new MenuBar(controller);
+		window = new Window(controller);
 	}
 	
 	public void init(){

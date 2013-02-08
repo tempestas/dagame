@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.event.*;
+
 import javax.swing.*;
 import main.*;
 
@@ -14,7 +15,7 @@ public class MenuBar extends JMenuBar{
 	public MenuBar (final Controller controller) {
 		
 		setSize(640,50);
-		exit.setMnemonic(KeyEvent.VK_C);
+		exit.setMnemonic(KeyEvent.VK_B);
 	    exit.setToolTipText("Beende Programm");
 	    exit.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent event) {
@@ -30,6 +31,7 @@ public class MenuBar extends JMenuBar{
         });
 	    datei.add(start);
 	    datei.add(exit);
+	    datei.setMnemonic(KeyEvent.VK_D);
 	    add(datei);
 	    
 
