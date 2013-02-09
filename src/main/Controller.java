@@ -70,7 +70,7 @@ public class Controller {
 		//starts next period
 		if (!eController.checkForCollisions()){
 			delay++;
-			timer.schedule(this.new sTask(this, delay), globals.get(GLOBALS.INTERVAL) );
+			timer.schedule(this.new sTask(this, delay), this.getGlobals(GLOBALS.INTERVAL) );
 		}
 		else{
 			System.out.println("Player crashes with box");
@@ -91,36 +91,6 @@ public class Controller {
 		return this.globals.get(globalParameter);
 	}
 	
-	public static void main(String[] args){
-		new Controller();
-	}
-
-
-
-	/**
-	 * task for timer ... executes function nextStep() after a certain interval
-	 * @author Sascha Eckert
-	 *
-	 */
-	public class sTask extends TimerTask
-	{
-	
-		Controller controller;
-		int delay;
-		public sTask(Controller controller, int delay) {
-			this.controller = controller;
-			this.delay = delay;
-		}
-
-		@Override
-		public void run() {
-			//TODO: Perioscouter output
-			System.out.println(delay);
-			controller.nextStep();
-		}
-
-	}
-	
 	public Data getData(){
 		return eController.getData();
 	}
@@ -131,6 +101,34 @@ public class Controller {
 	 */
 	public void keyHandling(KEYS key){
 		this.eController.keyHandling(key);
+	}
+
+	public static void main(String[] args){
+		new Controller();
+	}
+
+	/**
+	 * task for timer ... executes function nextStep() of Controller class after a certain interval
+	 * @author Sascha Eckert
+	 *
+	 */
+	public class sTask extends TimerTask
+	{
+	
+		private Controller controller;
+		private int delay;
+		public sTask(Controller controller, int delay) {
+			this.controller = controller;
+			this.delay = delay;
+		}
+
+		@Override
+		public void run() {
+			//TODO: remove periods counter output
+			System.out.println(delay);
+			this.controller.nextStep();
+		}
+
 	}
 	
 	/**

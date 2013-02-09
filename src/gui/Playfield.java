@@ -7,7 +7,6 @@ import engine.*;
 public class Playfield extends Canvas
 {
 	
-	int anzObjekte = 6;
 	private Image dbImage;
 	private Graphics dbg;
 	private Data data;
@@ -17,15 +16,16 @@ public class Playfield extends Canvas
 		setMaximumSize(getSize());
 		this.data = data;
 	}
-	public void init() {
+	
+	void init() {
 		
 		setBackground(Color.black);
 		setVisible(true);
 		
 		
 	}
-	public void update (Graphics g)
-  {
+	
+	public void update (Graphics g)  {
     // Initialisierung des DoubleBuffers
     if (dbImage == null)
     {
@@ -55,11 +55,9 @@ public class Playfield extends Canvas
 		  g.fillRect( data.getPlayer(i).getCurPos(0),this.getHeight()-data.getPlayer(i).getCurPos(1)-data.getPlayer(i).getHeight(), data.getPlayer(i).getWidth(), data.getPlayer(i).getHeight());
 	  }
   }
-public Data getData() {
-	return data;
-}
-public void setData(Data data) {
+  
+  public void setData(Data data) {
 	this.data = data;
-}
+  }
 
 }
