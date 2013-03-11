@@ -30,6 +30,15 @@ public class EngineController {
 		createPlayer();
 	}
 	
+	public void reset(){
+		this.data = new Data();
+		if(this.data.getPlayers().size() == 0) {
+			this.createPlayer();
+		}
+		//this.controller.init();
+		currentPoints = 0;
+	}
+	
 	/**
 	 * calculates next step
 	 */

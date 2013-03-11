@@ -25,16 +25,8 @@ public class Window extends JFrame {
             	}
             }
             public void keyReleased(KeyEvent e) {
-            	if (e.getKeyCode() == KeyEvent.VK_F2) {
-            		controller.init();
-                }            	
-            	if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-        		System.exit(0);
-        	}}
-        }); 
-
-
-
+            }
+        });
 	}
 
 }

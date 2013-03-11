@@ -13,7 +13,7 @@ public class GuiController  {
 	
 	public GuiController(Controller controller){
 		
-		this.playfield = new Playfield(controller.getGlobals(GLOBALS.PLAYFILEDSIZEX), controller.getGlobals(GLOBALS.PLAYFILEDSIZEY), controller.getData());
+		this.playfield = new Playfield(controller);
 		this.menue = new MenuBar(controller);
 		this.window = new Window(controller);
 	}
@@ -29,6 +29,11 @@ public class GuiController  {
 	public void nextStep(Data data) {
 		
 		this.playfield.setData(data);
+		this.playfield.repaint();
+	}
+	
+	public void reset() {
+		this.playfield.setData(null);
 		this.playfield.repaint();
 	}
 }
