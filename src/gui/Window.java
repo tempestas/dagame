@@ -5,7 +5,11 @@ import main.*;
 import main.Controller.KEYS;
 
 import javax.swing.*;
-
+/**
+ * Container for all GUI objects
+ * @author Sven Arenz
+ *
+ */
 public class Window extends JFrame {
 	
 	public Window (final Controller controller) {
@@ -13,7 +17,7 @@ public class Window extends JFrame {
 		setResizable(false);
 		setLocation(300,100);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setTitle("daGame");
+		setTitle("Zombies Vs Aliens Vs Witches Vs You!!!");
 		addKeyListener(new KeyListener() {
             public void keyTyped(KeyEvent e) {}
             public void keyPressed(KeyEvent e) {

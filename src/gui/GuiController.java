@@ -8,7 +8,11 @@ import engine.Data;
 import main.Controller;
 import main.Controller.GLOBALS;
 
-
+/**
+ * Fills the game window with the necessary objects and controls the display
+ * @author Arenz, Sven
+ *
+ */
 public class GuiController  {
 
 	private Playfield playfield;

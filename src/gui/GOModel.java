@@ -4,7 +4,11 @@ import java.awt.image.*;
 import java.io.*;
 
 import javax.imageio.*;
-
+/**
+ * Class which sets width and height of in-game Objects from their images
+ * @author Sven Arenz
+ *
+ */
 public class GOModel {
 
 	private int width;
@@ -12,12 +16,16 @@ public class GOModel {
 	private BufferedImage img;
 	
 	public GOModel(String pfad) {
+		
 		try {
+			
 			this.img = ImageIO.read(new File(pfad));
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		this.width = img.getWidth();
 		this.height = img.getHeight();
 	}

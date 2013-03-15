@@ -8,12 +8,21 @@ import javax.swing.*;
 import main.*;
 import main.Controller.KEYS;
 
+/**
+ * Creates the menu bar and the file menu
+ * @author Sven Arenz
+ *
+ */
 public class MenuBar extends JMenuBar{
 
 	private JMenu datei = new JMenu("Datei");
 	private JMenuItem start = new JMenuItem("Start", KeyEvent.VK_F2);
 	private JMenuItem exit = new JMenuItem("Beenden", KeyEvent.VK_ESCAPE);
 		
+	/**
+	 * Initializes the menu objects with Key Listeners and Accelerators
+	 * @param controller
+	 */
 	public MenuBar (final Controller controller) {
 		
 		setSize(640,50);
