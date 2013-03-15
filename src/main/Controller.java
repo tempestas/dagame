@@ -26,7 +26,7 @@ public class Controller {
 		}
 	};
 
-
+	private String projectPath;
 	private Timer timer = new Timer();
 	private EngineController eController = null;
 	private GuiController gController = null;
@@ -36,6 +36,7 @@ public class Controller {
 	private boolean isRunning = false;
 
 	public Controller() {
+		this.projectPath = getClass().getClassLoader().getResource(".").getPath();
 		eController = new EngineController(this);
 		gController = new GuiController(this);
 		gController.init();
@@ -116,6 +117,10 @@ public class Controller {
 
 	public boolean isRunning(){
 		return isRunning;
+	}
+	
+	public String getProjectPath(){
+		return projectPath;
 	}
 
 	public static void main(String[] args){

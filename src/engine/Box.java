@@ -1,19 +1,20 @@
 package engine;
 
+import gui.GOModel;
+
 public class Box extends GameObject{
+	
+	public Box(int posx, int posy, GOModel model){
 
-	public Box(int posx, int posy){
-
-		super(posx, posy);
+		super(posx, posy, model);
 		this.setMoveSpeed(5*((int)(Math.random()*3+1)));
 
 	}
 	
-	public Box(int posx, int posy, int moveSpeed, int width, int height){
-		super(posx, posy);
+	public Box(int posx, int posy, int moveSpeed, GOModel model){
+		super(posx, posy, model);
 		this.setMoveSpeed(moveSpeed);
-		this.setWidth(width);
-		this.setHeight(height);
+		
 	}
 	
 	

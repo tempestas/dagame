@@ -3,7 +3,13 @@ package gui;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 import main.Controller;
 import main.Controller.GLOBALS;
@@ -14,13 +20,31 @@ public class Playfield extends Canvas
 {
 	
 	private Image dbImage;
+	private Image bgImg;
+	private Image title;
 	private Graphics dbg;
 	private Data data;
+	private Font scoreFont;
+	private String layoutPath = "";
 		
 	public Playfield(final Controller controller) {
 		
 		setSize(controller.getGlobals(GLOBALS.PLAYFILEDSIZEX),controller.getGlobals(GLOBALS.PLAYFILEDSIZEY));
 		setMaximumSize(getSize());
+		//TODO: Kommentar
+		//if (modelNr == 0){
+			this.layoutPath = controller.getProjectPath()+"layouts/ZOMBIESETC/";
+		//}
+		try {
+			scoreFont = Font.createFont(Font.TRUETYPE_FONT, new File(layoutPath+"scoreFont.ttf"));
+			scoreFont = scoreFont.deriveFont(24f);
+		} catch (FontFormatException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		this.data = controller.getData();
 		
 		addKeyListener(new KeyListener() {
@@ -40,7 +64,14 @@ public class Playfield extends Canvas
 	
 	void init() {
 		
-		setBackground(Color.black);
+		
+		try {
+			bgImg = ImageIO.read(new File(layoutPath+"background.png"));
+			title = ImageIO.read(new File(layoutPath+"title.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setVisible(true);
 		
 		
@@ -68,12 +99,20 @@ public class Playfield extends Canvas
   
   public void paint (Graphics g)
   {
-	  g.setColor  (Color.white);
+	  g.drawImage(bgImg, 0, 0, null);
+	  if(data.getPlayers().size() == 0) {
+		  g.drawImage(title, 75,75,null);
+	  }
+	  else {
+		  g.setColor(Color.CYAN);
+		  g.setFont(scoreFont);
+		  g.drawString("Score: "+data.getPlayer(0).getScore(),480,50); //TODO: variabel gestalten
+	  }
 	  for(int i = 0; i < data.getBoxes().size(); i++) {
-		  g.fillRect( data.getBox(i).getCurPos(0),this.getHeight()-data.getBox(i).getCurPos(1)-data.getBox(i).getHeight(), data.getBox(i).getWidth(), data.getBox(i).getHeight());
+		  g.drawImage( data.getBox(i).getImage(), data.getBox(i).getCurPos(0),this.getHeight()-data.getBox(i).getCurPos(1)-data.getBox(i).getHeight(), null);
 	  }
 	  for(int i = 0; i < data.getPlayers().size(); i++) {
-		  g.fillRect( data.getPlayer(i).getCurPos(0),this.getHeight()-data.getPlayer(i).getCurPos(1)-data.getPlayer(i).getHeight(), data.getPlayer(i).getWidth(), data.getPlayer(i).getHeight());
+		  g.drawImage( data.getPlayer(i).getImage(), data.getPlayer(i).getCurPos(0),this.getHeight()-data.getPlayer(i).getCurPos(1)-data.getPlayer(i).getHeight(), null);
 	  }
   }
   

@@ -1,10 +1,14 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Properties;
+import java.util.Random;
 
 import main.Controller;
 import main.Controller.GLOBALS;
 import main.Controller.KEYS;
+import gui.GOModel;
 
 
 /**
@@ -13,14 +17,42 @@ import main.Controller.KEYS;
  *
  */
 public class EngineController {
+	
+	
 
 	private Data data;
 	private int currentPoints;
 	private Controller controller;
+	private HashMap<String,GOModel> models = new HashMap<String,GOModel>();
+	private String projectPath;
 	
 	public EngineController(Controller controller){
+		//TODO: relative path
+		//Properties p = new Properties(System.getProperties());
+		//System.out.println();
+		System.out.println(controller.getProjectPath());
+		projectPath = controller.getProjectPath();
 		this.controller = controller;
+		this.setModel(0);
 		this.data = new Data();
+	}
+	
+	private void setModel(int modelNr){
+				
+		//TODO: Die Bildnamen muessen entsprechend angepasst werden.
+		
+		models = new HashMap<String,GOModel>();
+		String layoutPath = "";
+		if (modelNr == 0){
+			layoutPath = projectPath+"/layouts/ZOMBIESETC/";
+		}
+		
+		models.put("Player1", new GOModel(layoutPath+"Player1.png"));
+		
+		for (int i=1;i<6;i++){
+			models.put("object"+i, new GOModel(layoutPath+"object"+i+".png"));
+		}
+		
 	}
 	
 	/**
@@ -66,7 +98,7 @@ public class EngineController {
 	 * creates new player and add him to data container
 	 */
 	private void createPlayer(){
-		this.data.addPlayer(new Player(controller.getGlobals(GLOBALS.PLAYFILEDSIZEX)/2-100));
+		this.data.addPlayer(new Player(controller.getGlobals(GLOBALS.PLAYFILEDSIZEX)/2-100, models.get("Player1")));
 	}
 	
 	/**
@@ -74,9 +106,12 @@ public class EngineController {
 	 * @return new Box
 	 */
 	private Box createBox(){
+		int objectNr = (int) (Math.random()*5+1);
+		
 		return new Box(
 				(int) (Math.random()*(controller.getGlobals(GLOBALS.PLAYFILEDSIZEX)-100)+1), //TODO: -100 have to replaced with dynamic box width 
-				controller.getGlobals(GLOBALS.PLAYFILEDSIZEY)-100 //TODO: -100 have to replaced with dynamic box height
+				controller.getGlobals(GLOBALS.PLAYFILEDSIZEY)-100, //TODO: -100 have to replaced with dynamic box height
+				models.get("object"+objectNr)
 				);
 	}
 	
@@ -95,6 +130,7 @@ public class EngineController {
 		}
 		
 		for (Box box: boxesToRemove){
+			calcPoints((box.getMovespeed()/5)*box.getWidth());
 			data.removeBox(box);
 		}
 	}
@@ -127,9 +163,8 @@ public class EngineController {
 	 * calculate Points for current state
 	 * @return current points
 	 */
-	public int calcPoints(){
-	
-		return currentPoints;
+	public void calcPoints(int points){
+		data.getPlayer(0).addPoints(points);
 	}
 
 	/**

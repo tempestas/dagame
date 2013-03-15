@@ -1,5 +1,9 @@
 package engine;
 
+import java.awt.Image;
+
+import gui.GOModel;
+
 /**
  * mathematical object for objects in game
  * @author Sascha Eckert
@@ -10,17 +14,15 @@ public class GameObject {
 	private int moveSpeed;
 	private int lastPos[] = new int[2];
 	private int curPos[] = new int[2];
-	private int width;
-	private int height;
+	private GOModel model;
 	
-	public GameObject(int posx, int posy){
+	public GameObject(int posx, int posy, GOModel model){
 		this.curPos[0] = posx;
 		this.curPos[1] = posy;
 		this.lastPos[0] = this.curPos[0];
 		this.lastPos[1] = this.curPos[1];
 		
-		this.width = 100;
-		this.height = 100;
+		this.model = model;
 	}
 
 	/**
@@ -31,11 +33,11 @@ public class GameObject {
 	 */
 	boolean isInGameObject(GameObject object){
 		if (((this.curPos[1] > (object.getCurPos(1))) && (this.curPos[1] < (object.getCurPos(1) + object.getHeight())))
-			|| ((this.curPos[1]+this.height > (object.getCurPos(1))) && (this.curPos[1]+this.height < (object.getCurPos(1) + object.getHeight())))
+			|| ((this.curPos[1]+this.model.getHeight() > (object.getCurPos(1))) && (this.curPos[1]+this.model.getHeight() < (object.getCurPos(1) + object.getHeight())))
 			)
 			
 			if (((this.curPos[0] > (object.getCurPos(0))) && (this.curPos[0] < (object.getCurPos(0) + object.getWidth())))
-				|| ((this.curPos[0]+this.width > (object.getCurPos(0))) && (this.curPos[0]+this.width < (object.getCurPos(0) + object.getWidth())))
+				|| ((this.curPos[0]+this.model.getWidth() > (object.getCurPos(0))) && (this.curPos[0]+this.model.getWidth() < (object.getCurPos(0) + object.getWidth())))
 				)
 				return true;
 		
@@ -91,7 +93,7 @@ public class GameObject {
 	 * @return width of object
 	 */
 	public int getWidth(){
-		return this.width;
+		return this.model.getWidth();
 	}
 	
 	/**
@@ -99,18 +101,16 @@ public class GameObject {
 	 * @return height of object
 	 */
 	public int getHeight(){
-		return this.height;
+		return this.model.getHeight();
 	}
 	
 	public int getMovespeed(){
 		return moveSpeed;
 	}
 	
-	protected void setWidth(int width){
-		this.width = width;
+	public Image getImage() {
+		return this.model.getImg();
 	}
 	
-	protected void setHeight(int height){
-		this.height = height;
-	}
+	
 }

@@ -1,5 +1,9 @@
 package gui;
 
+import java.io.*;
+import javax.imageio.*;
+import javax.swing.*;
+
 import engine.Data;
 import main.Controller;
 import main.Controller.GLOBALS;
@@ -20,11 +24,10 @@ public class GuiController  {
 	
 	public void init(){
 		
+		this.window.setJMenuBar(this.menue);
 		this.window.add(this.playfield);
 		this.playfield.init();
-		this.window.setJMenuBar(this.menue);
 		this.window.setVisible(true);
-		
 	}
 	public void nextStep(Data data) {
 		

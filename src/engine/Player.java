@@ -1,5 +1,6 @@
 package engine;
 
+import gui.GOModel;
 import main.Controller.KEYS;
 
 
@@ -10,9 +11,12 @@ import main.Controller.KEYS;
  */
 public class Player extends GameObject{
 
-	public Player(int posx) {
-		super(posx, 0);
+	private int score;
+	
+	public Player(int posx, GOModel model) {
+		super(posx, 0, model);
 		this.setMoveSpeed(15);
+		score = 0;
 		}
 
 	/**
@@ -29,5 +33,11 @@ public class Player extends GameObject{
 		default:
 			break;
 		}
+	}
+	public void addPoints(int points) {
+		score += points;
+	}
+	public int getScore() {
+		return score;
 	}
 }

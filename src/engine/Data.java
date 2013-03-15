@@ -1,6 +1,9 @@
 package engine;
 
+import gui.GOModel;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Data Container for all necessary data
