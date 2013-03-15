@@ -14,8 +14,8 @@ public class Player extends GameObject{
 	private int score;
 	
 	public Player(int posx, GOModel model) {
-		super(posx, 0, model);
-		this.setMoveSpeed(15);
+		super(posx - model.getWidth(), 0, model);
+		this.setMoveSpeed(25);
 		score = 0;
 		}
 

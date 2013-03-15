@@ -1,14 +1,10 @@
 package engine;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Properties;
-import java.util.Random;
 
 import main.Controller;
 import main.Controller.GLOBALS;
 import main.Controller.KEYS;
-import gui.GOModel;
 
 
 /**
@@ -21,39 +17,17 @@ public class EngineController {
 	
 
 	private Data data;
-	private int currentPoints;
 	private Controller controller;
-	private HashMap<String,GOModel> models = new HashMap<String,GOModel>();
-	private String projectPath;
+
 	
 	public EngineController(Controller controller){
-		//TODO: relative path
-		//Properties p = new Properties(System.getProperties());
-		//System.out.println();
-		System.out.println(controller.getProjectPath());
-		projectPath = controller.getProjectPath();
+
+		//projectPath = controller.getProjectPath();
 		this.controller = controller;
-		this.setModel(0);
 		this.data = new Data();
 	}
 	
-	private void setModel(int modelNr){
-				
-		//TODO: Die Bildnamen muessen entsprechend angepasst werden.
-		
-		models = new HashMap<String,GOModel>();
-		String layoutPath = "";
-		if (modelNr == 0){
-			layoutPath = projectPath+"/layouts/ZOMBIESETC/";
-		}
-		
-		models.put("Player1", new GOModel(layoutPath+"Player1.png"));
-		
-		for (int i=1;i<6;i++){
-			models.put("object"+i, new GOModel(layoutPath+"object"+i+".png"));
-		}
-		
-	}
+	
 	
 	/**
 	 * initializes start sequence
@@ -67,8 +41,6 @@ public class EngineController {
 		if(this.data.getPlayers().size() == 0) {
 			this.createPlayer();
 		}
-		//this.controller.init();
-		currentPoints = 0;
 	}
 	
 	/**
@@ -98,7 +70,12 @@ public class EngineController {
 	 * creates new player and add him to data container
 	 */
 	private void createPlayer(){
-		this.data.addPlayer(new Player(controller.getGlobals(GLOBALS.PLAYFILEDSIZEX)/2-100, models.get("Player1")));
+		this.data.addPlayer(
+				new Player(
+						controller.getGlobals(GLOBALS.PLAYFILEDSIZEX)/2+controller.getModel().get("Player1").getWidth()/2, 
+						controller.getModel().get("Player1")
+						)
+				);
 	}
 	
 	/**
@@ -109,9 +86,9 @@ public class EngineController {
 		int objectNr = (int) (Math.random()*5+1);
 		
 		return new Box(
-				(int) (Math.random()*(controller.getGlobals(GLOBALS.PLAYFILEDSIZEX)-100)+1), //TODO: -100 have to replaced with dynamic box width 
-				controller.getGlobals(GLOBALS.PLAYFILEDSIZEY)-100, //TODO: -100 have to replaced with dynamic box height
-				models.get("object"+objectNr)
+				(int) (Math.random()*(controller.getGlobals(GLOBALS.PLAYFILEDSIZEX)-controller.getModel().get("object"+objectNr).getWidth())+1), 
+				controller.getGlobals(GLOBALS.PLAYFILEDSIZEY),
+				controller.getModel().get("object"+objectNr)
 				);
 	}
 	

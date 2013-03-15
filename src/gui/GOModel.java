@@ -22,7 +22,6 @@ public class GOModel {
 			this.img = ImageIO.read(new File(pfad));
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

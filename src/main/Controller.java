@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import engine.Box;
 import engine.Data;
 import engine.EngineController;
+import gui.GOModel;
 import gui.GuiController;
 
 
@@ -22,21 +23,25 @@ public class Controller {
 			put(GLOBALS.PLAYFILEDSIZEX,640);
 			put(GLOBALS.PLAYFILEDSIZEY,800);
 			put(GLOBALS.INTERVAL, 100); //in ms
-			put(GLOBALS.BOXAFTERINTERVALLCOUNTOF, 20); //box on intervalcounter of x (random)
+			put(GLOBALS.BOXAFTERINTERVALLCOUNTOF, 10); //box on intervalcounter of x (random)
 		}
 	};
 
-	private String projectPath;
+	private String layoutPath = getClass().getClassLoader().getResource(".").getPath()+"layouts/";
 	private Timer timer = new Timer();
 	private EngineController eController = null;
 	private GuiController gController = null;
+	private HashMap<String,GOModel> models = new HashMap<String,GOModel>();
+	private HashMap<String,String> styles = new HashMap<String,String>();
 
 	private int delay = 0;
 	private boolean reset = false;
 	private boolean isRunning = false;
 
 	public Controller() {
-		this.projectPath = getClass().getClassLoader().getResource(".").getPath();
+		//this.layoutPath = getClass().getClassLoader().getResource(".").getPath()+"/layouts";
+		this.setModel(0); //TODO: ueber menu steuern
+		this.setStyles(0); //TODO: ueber menu steuern
 		eController = new EngineController(this);
 		gController = new GuiController(this);
 		gController.init();
@@ -59,13 +64,14 @@ public class Controller {
 	 */
 	private void nextStep(){
 
+		if (delay > 100)
+			setModel(1);
 		eController.nextStep();
 		
 		// TODO: just for testing (boxes position)
 		if (eController.getData().getBoxes().size() != 0)
 			for (Box box : eController.getData().getBoxes())
 				System.out.println("x: "+box.getCurPos(0)+" y: "+box.getCurPos(1));
-		//System.out.println("PLAYER x: "+eController.getData().getPlayer(0).getCurPos(0)+" y: "+eController.getData().getPlayer(0).getCurPos(1));
 
 		//starts next period
 		if (!reset){
@@ -119,8 +125,52 @@ public class Controller {
 		return isRunning;
 	}
 	
-	public String getProjectPath(){
-		return projectPath;
+	public String getLayoutPath(){
+		return layoutPath;
+	}
+	
+	private void setModel(int modelNr){
+		
+		//TODO: Weitere Layouts hinzufuegen
+		models = new HashMap<String,GOModel>();
+		String layout = "";
+		if (modelNr == 0){
+			layout += "/ZOMBIESETC/";
+		}
+		if (modelNr == 1){
+			layout = "/SPACE/";
+		}
+		
+		models.put("Player1", new GOModel(layoutPath+layout+"Player1.png"));
+		
+		for (int i=1;i<6;i++){
+			models.put("object"+i, new GOModel(layoutPath+layout+"object"+i+".png"));
+		}
+	}
+	
+	private void setStyles(int styleNr){
+		
+		styles = new HashMap<String, String>();
+		String layout = "";
+		if (styleNr == 0){
+			layout += "/ZOMBIESETC/";
+		}
+		if (styleNr == 1){
+			layout = "/SPACE/";
+		}
+		
+		styles.put("background", layoutPath+layout+"background.png");
+		styles.put("font", layoutPath+layout+"scoreFont.ttf");
+		styles.put("title", layoutPath+layout+"title.png");
+	}
+	
+	public HashMap<String,String> getStyle(){
+		
+		return this.styles;
+	}
+	
+	public HashMap<String,GOModel> getModel(){
+		return this.models;
 	}
 
 	public static void main(String[] args){

@@ -1,20 +1,22 @@
 package gui;
 
-import java.awt.*;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 import main.Controller;
 import main.Controller.GLOBALS;
 import main.Controller.KEYS;
-import engine.*;
+import engine.Data;
 
 /**
  * Responsible for painting the in-game Objects on the game window object
@@ -31,7 +33,7 @@ public class Playfield extends Canvas
 	private Graphics dbg;
 	private Data data;
 	private Font scoreFont;
-	private String layoutPath = "";
+
 		
 	/**
 	 * Initializes Images, Score Font and Key Listeners 
@@ -41,20 +43,15 @@ public class Playfield extends Canvas
 		
 		setSize(controller.getGlobals(GLOBALS.PLAYFILEDSIZEX),controller.getGlobals(GLOBALS.PLAYFILEDSIZEY));
 		setMaximumSize(getSize());
-		//TODO: Kommentar
-		//if (modelNr == 0){
-			this.layoutPath = controller.getProjectPath()+"layouts/ZOMBIESETC/";
-		//}
+		
 		try {
-			scoreFont = Font.createFont(Font.TRUETYPE_FONT, new File(layoutPath+"scoreFont.ttf"));
+			scoreFont = Font.createFont(Font.TRUETYPE_FONT, new File(controller.getStyle().get("font")));
 			scoreFont = scoreFont.deriveFont(24f);
-			bgImg = ImageIO.read(new File(layoutPath+"background.png"));
-			title = ImageIO.read(new File(layoutPath+"title.png"));
+			bgImg = ImageIO.read(new File(controller.getStyle().get("background")));
+			title = ImageIO.read(new File(controller.getStyle().get("title")));
 		} catch (FontFormatException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		this.data = controller.getData();
