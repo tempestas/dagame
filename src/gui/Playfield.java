@@ -43,7 +43,7 @@ public class Playfield extends Canvas
 		setMaximumSize(getSize());
 		//TODO: Kommentar
 		//if (modelNr == 0){
-			this.layoutPath = "layouts/ZOMBIESETC/";
+			this.layoutPath = controller.getProjectPath()+"layouts/ZOMBIESETC/";
 		//}
 		try {
 			scoreFont = Font.createFont(Font.TRUETYPE_FONT, new File(layoutPath+"scoreFont.ttf"));
@@ -90,11 +90,11 @@ public class Playfield extends Canvas
       dbg = dbImage.getGraphics();
     }
 
-    // Bildschirm im Hintergrund löschen
+    // Bildschirm im Hintergrund lï¿½schen
     dbg.setColor (getBackground ());
     dbg.fillRect (0, 0, this.getSize().width, this.getSize().height);
 
-    // Auf gelöschten Hintergrund Vordergrund zeichnen
+    // Auf gelï¿½schten Hintergrund Vordergrund zeichnen
     dbg.setColor (getForeground());
     paint (dbg);
 
