@@ -1,9 +1,6 @@
 package gui;
 
-import java.awt.MenuItem;
-import java.awt.MenuShortcut;
 import java.awt.event.*;
-
 import javax.swing.*;
 import main.*;
 import main.Controller.KEYS;
@@ -17,13 +14,15 @@ public class MenuBar extends JMenuBar{
 
 	private JMenu datei = new JMenu("Datei");
 	private JMenuItem start = new JMenuItem("Start", KeyEvent.VK_F2);
+	private JMenuItem newobject = new JMenuItem("New object", KeyEvent.VK_F3);
 	private JMenuItem exit = new JMenuItem("Beenden", KeyEvent.VK_ESCAPE);
+	private JMenuItem optionen = new JMenuItem("Optionen", KeyEvent.VK_O);
 		
 	/**
 	 * Initializes the menu objects with Key Listeners and Accelerators
 	 * @param controller
 	 */
-	public MenuBar (final Controller controller) {
+	public MenuBar (final Controller controller, final GuiController gui) {
 		
 		setSize(640,50);
 		exit.setMnemonic(KeyEvent.VK_B);
@@ -34,6 +33,16 @@ public class MenuBar extends JMenuBar{
 	            System.exit(0);
 	        }
         });
+	    
+	    newobject.setMnemonic(KeyEvent.VK_N);
+		newobject.setToolTipText("Neues Objekt erstellen");
+		newobject.setAccelerator(KeyStroke.getKeyStroke("F3"));
+		newobject.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent event) {
+	        	controller.addBox();
+	        }
+        });	   
+		
 	    start.setMnemonic(KeyEvent.VK_S);
 	    start.setToolTipText("Starte Neues Spiel");
 	    start.setAccelerator(KeyStroke.getKeyStroke("F2"));
@@ -47,8 +56,18 @@ public class MenuBar extends JMenuBar{
         		}
 	        }
         });
+	    optionen.setMnemonic(KeyEvent.VK_O);
+	    optionen.setToolTipText("�ffne Optionsmen�");
+	    optionen.setAccelerator(KeyStroke.getKeyStroke("O"));
+	    optionen.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent event) {
+	    		gui.getWindow("Optionen").setVisible(true);
+	    	}
+	    });
 	    
 	    datei.add(start);
+	    datei.add(newobject);
+	    datei.add(optionen);
 	    datei.add(exit);
 	    datei.setMnemonic(KeyEvent.VK_D);
 	    add(datei);

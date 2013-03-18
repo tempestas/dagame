@@ -21,7 +21,6 @@ public class EngineController {
 
 	
 	public EngineController(Controller controller){
-
 		//projectPath = controller.getProjectPath();
 		this.controller = controller;
 		this.data = new Data();
@@ -160,5 +159,9 @@ public class EngineController {
 				break;
 			default: ;break;
 		}
+	}
+	
+	public void addBox(){
+		this.data.addBox(createBox());
 	}
 }

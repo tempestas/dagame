@@ -83,7 +83,7 @@ public class Controller {
 				System.out.println("Player crashes with box");
 				isRunning = false;
 			}
-			gController.nextStep(eController.getData());
+			gController.nextStep();
 		}
 		else{
 			eController.reset();
@@ -129,7 +129,7 @@ public class Controller {
 		return layoutPath;
 	}
 	
-	private void setModel(int modelNr){
+	public void setModel(int modelNr){
 		
 		//TODO: Weitere Layouts hinzufuegen
 		models = new HashMap<String,GOModel>();
@@ -148,20 +148,28 @@ public class Controller {
 		}
 	}
 	
-	private void setStyles(int styleNr){
+	public void setStyles(int styleNr){
 		
 		styles = new HashMap<String, String>();
 		String layout = "";
 		if (styleNr == 0){
-			layout += "/ZOMBIESETC/";
+			layout += "ZOMBIESETC";
 		}
 		if (styleNr == 1){
-			layout = "/SPACE/";
+			layout += "SPACE";
 		}
 		
-		styles.put("background", layoutPath+layout+"background.png");
-		styles.put("font", layoutPath+layout+"scoreFont.ttf");
-		styles.put("title", layoutPath+layout+"title.png");
+		styles.put("background", layoutPath+layout+"/"+"background.png");
+		styles.put("font", layoutPath+layout+"/"+"scoreFont.ttf");
+		styles.put("title", layoutPath+layout+"/"+"title.png");
+		//System.out.println(styles.get("background"));
+	}
+	
+	public void setBackground(String layout) {
+		System.out.println(layout);
+		styles.put("background", layoutPath+layout+"/"+"background.png");
+		System.out.println(styles.get("background"));
+		gController.setBackground(styles.get("background"));
 	}
 	
 	public HashMap<String,String> getStyle(){
@@ -171,6 +179,10 @@ public class Controller {
 	
 	public HashMap<String,GOModel> getModel(){
 		return this.models;
+	}
+	
+	public void addBox(){
+		this.eController.addBox();
 	}
 
 	public static void main(String[] args){

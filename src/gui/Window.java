@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.event.*;
+
 import main.*;
 import main.Controller.KEYS;
 
@@ -12,25 +13,33 @@ import javax.swing.*;
  */
 public class Window extends JFrame {
 	
-	public Window (final Controller controller) {
-		setSize(640,850);
+	private Controller controller;
+	
+	public Window (final Controller controller, int width, int height, String title, String close, int locX, int locY) {
+		setSize(width,height);
 		setResizable(false);
-		setLocation(300,100);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setTitle("Zombies Vs Aliens Vs Witches Vs You!!!");
+		this.controller = controller;
+		if(close.equals("Exit")) {
+			setDefaultCloseOperation(EXIT_ON_CLOSE);
+		} else if(close.equals("Hide")) {
+			setDefaultCloseOperation(HIDE_ON_CLOSE);
+		}
+		setLocation(locX,locY);
 		addKeyListener(new KeyListener() {
-            public void keyTyped(KeyEvent e) {}
-            public void keyPressed(KeyEvent e) {
-            	if(e.getKeyCode()== KeyEvent.VK_LEFT) {
-            		controller.keyHandling(KEYS.LEFT);
-            	}
-            	if(e.getKeyCode()== KeyEvent.VK_RIGHT) {
-            		controller.keyHandling(KEYS.RIGHT);
-            	}
-            }
-            public void keyReleased(KeyEvent e) {
-            }
-        });
+	        public void keyTyped(KeyEvent e) {}
+	        public void keyPressed(KeyEvent e) {
+	          	if(e.getKeyCode()== KeyEvent.VK_LEFT) {
+	           		controller.keyHandling(KEYS.LEFT);
+	           	}
+	           	if(e.getKeyCode()== KeyEvent.VK_RIGHT) {
+	           		controller.keyHandling(KEYS.RIGHT);
+	           	}
+	        }
+	        public void keyReleased(KeyEvent e) {
+	        }
+	    });
+		setTitle(title);
+		
 	}
 
 }

@@ -39,7 +39,7 @@ public class Playfield extends Canvas
 	 * Initializes Images, Score Font and Key Listeners 
 	 * @param controller
 	 */
-	public Playfield(final Controller controller) {
+	public Playfield(final Controller controller, final GuiController gui) {
 		
 		setSize(controller.getGlobals(GLOBALS.PLAYFILEDSIZEX),controller.getGlobals(GLOBALS.PLAYFILEDSIZEY));
 		setMaximumSize(getSize());
@@ -55,6 +55,7 @@ public class Playfield extends Canvas
 			e1.printStackTrace();
 		}
 		this.data = controller.getData();
+		
 		
 		addKeyListener(new KeyListener() {
             public void keyTyped(KeyEvent e) {}
@@ -118,16 +119,25 @@ public class Playfield extends Canvas
 	  for(int i = 0; i < data.getPlayers().size(); i++) {
 		  g.drawImage( data.getPlayer(i).getImage(), data.getPlayer(i).getCurPos(0),this.getHeight()-data.getPlayer(i).getCurPos(1)-data.getPlayer(i).getHeight(), null);
 	  }
-	  
-	  if(data.getPlayer(0).getScore() > 1000) g.drawString("Zu viel Zeit?",250,100);
-	  if(data.getPlayer(0).getScore() > 2000) g.drawString("Offensichtlich...",250,130);
-	  if(data.getPlayer(0).getScore() > 3000) g.drawString("Ingo ist ein Penis!",230,160);
-	  if(data.getPlayer(0).getScore() > 4000) g.drawString("Stirb!!",250,200);
-	  
+	  if(data.getPlayers().size() > 0) {
+		  if(data.getPlayer(0).getScore() > 1000) g.drawString("Zu viel Zeit?",250,100);
+		  if(data.getPlayer(0).getScore() > 2000) g.drawString("Offensichtlich...",250,130);
+		  if(data.getPlayer(0).getScore() > 3000) g.drawString("Ingo stinkt nach Fisch!",230,160);
+		  if(data.getPlayer(0).getScore() > 4000) g.drawString("Stirb!!",250,200);
+	  }
   }
   
   public void setData(Data data) {
 	this.data = data;
+  }
+  
+  void setBackgroudImage(String backgroundimage){
+	  try {
+		bgImg = ImageIO.read(new File(backgroundimage));
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   }
 
 }
