@@ -14,7 +14,7 @@ public class GameObject {
 	private int moveSpeed;
 	private int lastPos[] = new int[2];
 	private int curPos[] = new int[2];
-	private GOModel model;
+	protected GOModel model;
 	
 	public GameObject(int posx, int posy, GOModel model){
 		this.curPos[0] = posx;

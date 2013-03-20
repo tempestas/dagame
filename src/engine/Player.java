@@ -1,5 +1,7 @@
 package engine;
 
+import java.awt.image.BufferedImage;
+
 import gui.GOModel;
 import main.Controller.KEYS;
 
@@ -14,7 +16,7 @@ public class Player extends GameObject{
 	private int score;
 	
 	public Player(int posx, GOModel model) {
-		super(posx - model.getWidth(), 0, model);
+		super(posx, 0, model);
 		this.setMoveSpeed(25);
 		score = 0;
 		}
@@ -39,5 +41,9 @@ public class Player extends GameObject{
 	}
 	public int getScore() {
 		return score;
+	}
+	
+	public void setModel(BufferedImage bufferedImage){
+		this.model.setImg(bufferedImage);
 	}
 }

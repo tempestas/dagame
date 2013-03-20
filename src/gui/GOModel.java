@@ -34,7 +34,14 @@ public class GOModel {
 	}
 
 	public BufferedImage getImg() {
-		return img;
+		return this.img;
+	}
+	
+	public void setImg(BufferedImage bufferedImage) {
+		
+		this.img = bufferedImage;
+		this.width = this.img.getWidth();
+		this.height = this.img.getHeight();
 	}
 
 	public int getWidth() {

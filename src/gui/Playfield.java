@@ -45,10 +45,10 @@ public class Playfield extends Canvas
 		setMaximumSize(getSize());
 		
 		try {
-			scoreFont = Font.createFont(Font.TRUETYPE_FONT, new File(controller.getStyle().get("font")));
+			scoreFont = Font.createFont(Font.TRUETYPE_FONT, new File(gui.getStyle().get("font")));
 			scoreFont = scoreFont.deriveFont(24f);
-			bgImg = ImageIO.read(new File(controller.getStyle().get("background")));
-			title = ImageIO.read(new File(controller.getStyle().get("title")));
+			bgImg = ImageIO.read(new File(gui.getStyle().get("background")));
+			title = ImageIO.read(new File(gui.getStyle().get("title")));
 		} catch (FontFormatException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
@@ -120,10 +120,10 @@ public class Playfield extends Canvas
 		  g.drawImage( data.getPlayer(i).getImage(), data.getPlayer(i).getCurPos(0),this.getHeight()-data.getPlayer(i).getCurPos(1)-data.getPlayer(i).getHeight(), null);
 	  }
 	  if(data.getPlayers().size() > 0) {
-		  if(data.getPlayer(0).getScore() > 1000) g.drawString("Zu viel Zeit?",250,100);
-		  if(data.getPlayer(0).getScore() > 2000) g.drawString("Offensichtlich...",250,130);
-		  if(data.getPlayer(0).getScore() > 3000) g.drawString("Ingo stinkt nach Fisch!",230,160);
-		  if(data.getPlayer(0).getScore() > 4000) g.drawString("Stirb!!",250,200);
+		  if(data.getPlayer(0).getScore() > 1000) g.drawString("Gelangweilt ?",250,100);
+		  if(data.getPlayer(0).getScore() > 2000) g.drawString("Was ist das denn ...",250,130);
+		  if(data.getPlayer(0).getScore() > 3000) g.drawString("Woher kommt die Musik ?",230,160);
+		  //if(data.getPlayer(0).getScore() > 4000) g.drawString("Stirb!!",250,200);
 	  }
   }
   
@@ -135,7 +135,6 @@ public class Playfield extends Canvas
 	  try {
 		bgImg = ImageIO.read(new File(backgroundimage));
 	} catch (IOException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
   }
