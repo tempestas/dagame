@@ -8,7 +8,6 @@ public class Box extends GameObject{
 
 		super(posx, posy, model);
 		this.setMoveSpeed(5*((int)(Math.random()*3+1)));
-
 	}
 	
 	public Box(int posx, int posy, int moveSpeed, GOModel model){

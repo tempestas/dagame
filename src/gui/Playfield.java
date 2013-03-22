@@ -111,6 +111,7 @@ public class Playfield extends Canvas
 	  else {
 		  g.setColor(Color.CYAN);
 		  g.setFont(scoreFont);
+		  System.out.println("playfield: "+data.getPlayer(0).getScore()); //TODO: loeschen
 		  g.drawString("Score: "+data.getPlayer(0).getScore(),460,50);
 	  }
 	  for(int i = 0; i < data.getBoxes().size(); i++) {

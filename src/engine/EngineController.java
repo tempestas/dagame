@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import main.Controller;
 import main.Controller.GLOBALS;
@@ -14,11 +15,18 @@ import main.Controller.KEYS;
  */
 public class EngineController {
 	
-	
+	private HashMap<OBJECTSETTINGS, Integer> objectSetting = new HashMap<OBJECTSETTINGS, Integer>(){
+		{
+			put(OBJECTSETTINGS.BOXAFTERINTERVALLCOUNTOF, 10); // durchschnittliche alle 10 steps
+			put(OBJECTSETTINGS.MAXSPEEDFACTOR, 6);
+			put(OBJECTSETTINGS.MAXSPEEDDIFFERNCE, 3);
+			put(OBJECTSETTINGS.NUMBEROFELEMENTS, 4);
+		}
+	};
 
 	private Data data;
 	private Controller controller;
-
+	private int difficulty;
 	
 	public EngineController(Controller controller){
 		//projectPath = controller.getProjectPath();
@@ -33,6 +41,8 @@ public class EngineController {
 	 */
 	public void init(){ //TODO: number of players as parameter
 		createPlayer();
+		
+		resetDifficulty();
 	}
 	
 	public void reset(){
@@ -40,6 +50,7 @@ public class EngineController {
 		if(this.data.getPlayers().size() == 0) {
 			this.createPlayer();
 		}
+		resetDifficulty();
 	}
 	
 	/**
@@ -52,9 +63,11 @@ public class EngineController {
 		else
 			moveBoxes();
 		
-		if ((int)(Math.random()*(controller.getGlobals(GLOBALS.BOXAFTERINTERVALLCOUNTOF)*2)) == 0){
-			this.data.addBox(createBox());
+		if ((int)(Math.random()*(controller.getGlobals(GLOBALS.BOXAFTERINTERVALLCOUNTOF))) == 0){
+			for (int i=0;i<objectSetting.get(OBJECTSETTINGS.NUMBEROFELEMENTS);i++)
+				this.data.addBox(createBox());
 		}
+		System.out.println("difficulty: "+this.difficulty);
 	}
 	
 	/**
@@ -87,6 +100,7 @@ public class EngineController {
 		return new Box(
 				(int) (Math.random()*(controller.getGlobals(GLOBALS.PLAYFILEDSIZEX)-controller.getModel().get("object"+objectNr).getWidth())+1), 
 				controller.getGlobals(GLOBALS.PLAYFILEDSIZEY),
+				(objectSetting.get(OBJECTSETTINGS.MAXSPEEDFACTOR)*((int)(Math.random()*objectSetting.get(OBJECTSETTINGS.MAXSPEEDDIFFERNCE)+1))),
 				controller.getModel().get("object"+objectNr)
 				);
 	}
@@ -106,7 +120,8 @@ public class EngineController {
 		}
 		
 		for (Box box: boxesToRemove){
-			calcPoints((box.getMovespeed()/5)*box.getWidth());
+			System.out.println("box geloescht: "); //TODO: loeschen
+			calcPoints((box.getMovespeed())*box.getWidth());
 			data.removeBox(box);
 		}
 	}
@@ -140,7 +155,12 @@ public class EngineController {
 	 * @return current points
 	 */
 	public void calcPoints(int points){
-		data.getPlayer(0).addPoints(points);
+		data.getPlayer(0).addPoints((int)Math.round(points/5.0));
+		if (data.getPlayer(0).getScore() > difficulty*1000){
+			increaseDifficulty();
+			this.difficulty++;
+			System.out.println("DIFFICULTY INCREASED");
+		}
 	}
 
 	/**
@@ -163,5 +183,32 @@ public class EngineController {
 	
 	public void addBox(){
 		this.data.addBox(createBox());
+	}
+	
+	private void resetDifficulty(){
+		this.difficulty = 1;
+		objectSetting.put(OBJECTSETTINGS.BOXAFTERINTERVALLCOUNTOF, 10); // durchschnittliche alle 10 steps
+		objectSetting.put(OBJECTSETTINGS.MAXSPEEDFACTOR, 4);
+		objectSetting.put(OBJECTSETTINGS.MAXSPEEDDIFFERNCE, 3);
+		objectSetting.put(OBJECTSETTINGS.NUMBEROFELEMENTS, 4);
+	}
+	
+	public void increaseDifficulty(){ //TODO: implementieren
+		if (objectSetting.get(OBJECTSETTINGS.BOXAFTERINTERVALLCOUNTOF) > 2)
+			objectSetting.put(OBJECTSETTINGS.BOXAFTERINTERVALLCOUNTOF, objectSetting.get(OBJECTSETTINGS.BOXAFTERINTERVALLCOUNTOF)-2);
+		if (this.difficulty%4 == 1){
+			objectSetting.put(OBJECTSETTINGS.MAXSPEEDFACTOR, objectSetting.get(OBJECTSETTINGS.MAXSPEEDFACTOR)+1);
+			objectSetting.put(OBJECTSETTINGS.MAXSPEEDDIFFERNCE, objectSetting.get(OBJECTSETTINGS.MAXSPEEDDIFFERNCE)+1);
+		}
+		objectSetting.put(OBJECTSETTINGS.NUMBEROFELEMENTS, objectSetting.get(OBJECTSETTINGS.NUMBEROFELEMENTS)+1);
+		
+		
+	}
+	
+	enum OBJECTSETTINGS {
+		BOXAFTERINTERVALLCOUNTOF,
+		NUMBEROFELEMENTS,
+		MAXSPEEDFACTOR,
+		MAXSPEEDDIFFERNCE
 	}
 }

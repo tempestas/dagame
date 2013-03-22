@@ -18,12 +18,12 @@ import gui.GuiController;
  */
 public class Controller {
 
-	private Map<GLOBALS, Integer> globals = new HashMap(){
+	final private Map<GLOBALS, Integer> globals = new HashMap(){
 		{
 			put(GLOBALS.PLAYFILEDSIZEX,640);
 			put(GLOBALS.PLAYFILEDSIZEY,800);
 			put(GLOBALS.INTERVAL, 100); //in ms
-			put(GLOBALS.BOXAFTERINTERVALLCOUNTOF, 10); //box on intervalcounter of x (random)
+			put(GLOBALS.BOXAFTERINTERVALLCOUNTOF, 100); //box on intervalcounter of x (random)
 		}
 	};
 
