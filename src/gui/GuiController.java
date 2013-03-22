@@ -25,14 +25,16 @@ public class GuiController implements ActionListener{
 	private MenuBar menue;
 	private Controller control;
 	private HashMap<String,GOModel> models = new HashMap<String,GOModel>();
-	private String layoutPath = getClass().getClassLoader().getResource(".").getPath()+"layouts/";
-	private String basicStylePath = getClass().getClassLoader().getResource(".").getPath()+"basicStyles/";
+	//private String layoutPath = getClass().getClassLoader().getResource(".").getPath()+"layouts/";
+	private String layoutPath = "src/layouts/";
+	//private String basicStylePath = getClass().getClassLoader().getResource(".").getPath()+"basicStyles/";
+	private String basicStylePath = "src/basicStyles/";
 	private HashMap<String,String> styles = new HashMap<String,String>();
 
 	public GuiController(Controller controller){
 
-		setModel(LAYOUT.SPACE); //TODO: ueber menu steuern
-		setStyles(LAYOUT.SPACE); //TODO: ueber menu steuern
+		setModel(LAYOUT.SPACE);
+		setStyles(LAYOUT.SPACE);
 		this.control = controller;		
 		this.playfield = new Playfield(controller, this);
 		this.menue = new MenuBar(controller, this);
@@ -131,7 +133,7 @@ public class GuiController implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
 		if(command.equals(layoutToString(LAYOUT.SPACE))) {
-			setModel(LAYOUT.ZOMBIESET);
+			setModel(LAYOUT.SPACE);
 			setStyles(LAYOUT.SPACE);
 			setBackground(LAYOUT.SPACE);
 			this.window.repaint();
@@ -145,7 +147,7 @@ public class GuiController implements ActionListener{
 		if(command.equals(layoutToString(LAYOUT.TETRIS))) {
 			setModel(LAYOUT.TETRIS);
 			setStyles(LAYOUT.TETRIS);
-			setBackground(LAYOUT.ZOMBIESET);
+			setBackground(LAYOUT.TETRIS);
 			this.window.repaint();
 		}
 	}

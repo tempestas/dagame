@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import sounds.Mp3;
+
 import engine.Box;
 import engine.Data;
 import engine.EngineController;
@@ -48,6 +50,7 @@ public class Controller {
 	 * initializes start sequence
 	 */
 	public void init(){
+		new Mp3("src/sounds/keygensound.wav").play();
 		eController.init();
 		eController.reset();
 		gController.reset();
@@ -66,9 +69,10 @@ public class Controller {
 		eController.nextStep();
 		
 		// TODO: just for testing (boxes position)
-		if (eController.getData().getBoxes().size() != 0)
+		/*if (eController.getData().getBoxes().size() != 0)
 			for (Box box : eController.getData().getBoxes())
 				System.out.println("x: "+box.getCurPos(0)+" y: "+box.getCurPos(1));
+				*/
 
 		//starts next period
 		if (!reset){
@@ -162,7 +166,7 @@ public class Controller {
 		@Override
 		public void run() {
 			//TODO: remove periods counter output
-			System.out.println(delay);
+			//System.out.println(delay);
 			this.controller.nextStep();
 		}
 

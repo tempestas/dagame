@@ -41,7 +41,6 @@ public class EngineController {
 	 */
 	public void init(){ //TODO: number of players as parameter
 		createPlayer();
-		
 		resetDifficulty();
 	}
 	
@@ -120,7 +119,6 @@ public class EngineController {
 		}
 		
 		for (Box box: boxesToRemove){
-			System.out.println("box geloescht: "); //TODO: loeschen
 			calcPoints((box.getMovespeed())*box.getWidth());
 			data.removeBox(box);
 		}
@@ -156,7 +154,7 @@ public class EngineController {
 	 */
 	public void calcPoints(int points){
 		data.getPlayer(0).addPoints((int)Math.round(points/5.0));
-		if (data.getPlayer(0).getScore() > difficulty*1000){
+		if (data.getPlayer(0).getScore() > difficulty*5000){
 			increaseDifficulty();
 			this.difficulty++;
 			System.out.println("DIFFICULTY INCREASED");
@@ -193,7 +191,7 @@ public class EngineController {
 		objectSetting.put(OBJECTSETTINGS.NUMBEROFELEMENTS, 4);
 	}
 	
-	public void increaseDifficulty(){ //TODO: implementieren
+	public void increaseDifficulty(){
 		if (objectSetting.get(OBJECTSETTINGS.BOXAFTERINTERVALLCOUNTOF) > 2)
 			objectSetting.put(OBJECTSETTINGS.BOXAFTERINTERVALLCOUNTOF, objectSetting.get(OBJECTSETTINGS.BOXAFTERINTERVALLCOUNTOF)-2);
 		if (this.difficulty%4 == 1){
