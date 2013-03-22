@@ -66,7 +66,6 @@ public class EngineController {
 			for (int i=0;i<objectSetting.get(OBJECTSETTINGS.NUMBEROFELEMENTS);i++)
 				this.data.addBox(createBox());
 		}
-		System.out.println("difficulty: "+this.difficulty);
 	}
 	
 	/**
